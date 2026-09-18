@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Design tokens — Plein Cadre Formation
+   Palette relevée sur le site existant (docs/audit-site-actuel.md §5) :
+   on garde l'identité du client, on la systématise.
+   ========================================================================== */
+
+@theme {
+  /* Fonds */
+  --color-cream: #f9f2e7;
+  --color-cream-deep: #f4e6d3;
+  --color-cream-shade: #efe3d0;
+
+  /* Encres */
+  --color-ink: #000036;
+  --color-ink-soft: #3e3d62;
+  --color-ink-mute: #6b6a8a;
+
+  /* Bleu nuit — couleur primaire de la marque */
+  --color-navy: #000069;
+  --color-navy-deep: #00003d;
+  --color-indigo: #323084;
+
+  /* Terracotta — accent. Sous-exploité sur l'ancien site (une seule apparition) */
+  --color-terracotta: #bd5041;
+  --color-terracotta-deep: #9e3b1b;
+  --color-terracotta-pale: #f3a78f;
+
+  /* Typographies */
+  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
+  --font-sans: var(--font-mulish), "Mulish", "Avenir Next", system-ui, sans-serif;
+
+  /* Rayon signature : arche en haut, un seul angle bas arrondi.
+     C'est la forme reconnaissable des cartes de Plein Cadre. */
+  --radius-cadre: 5.5rem;
+  --radius-cadre-sm: 3rem;
+
+  /* Échelle typographique modulaire (ratio 1.25 sur une base de 17 px) */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.5rem;
+  --text-4xl: 3.25rem;
+  --text-5xl: 4.25rem;
+  --text-6xl: 5.5rem;
+
+  --tracking-eyebrow: 0.18em;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  * {
+    min-width: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Le grain : évite l'aplat numérique parfaitement lisse.
+     Dosé à 3,5 %, invisible consciemment, sensible inconsciemment. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    font-variation-settings: "SOFT" 0, "WONK" 1;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Dates, prix, durées : chiffres de largeur fixe, les colonnes s'alignent */
+  time,
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Focus assumé : accessibilité ET détail de finition */
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-navy);
+    color: var(--color-cream);
+  }
+
+  /* Pas de saut sous le header collant quand on suit une ancre */
+  [id] {
+    scroll-margin-top: 7rem;
+  }
+}
+
+/* ==========================================================================
+   Composants
+   ========================================================================== */
+
+@layer components {
+  /* Ligne de métadonnées en petites capitales, posée au-dessus des titres.
+     Référence : la fiche technique d'un film. */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--color-terracotta-deep);
+  }
+
+  /* Filet fin — remplace les ombres portées, qu'on n'utilise nulle part */
+  .rule {
+    border: 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 15%, transparent);
+  }
+
+  .shape-cadre {
+    border-radius: var(--radius-cadre) var(--radius-cadre) 0 var(--radius-cadre);
+  }
+
+  .shape-cadre-sm {
+    border-radius: var(--radius-cadre-sm) var(--radius-cadre-sm) 0
+      var(--radius-cadre-sm);
+  }
+
+  /* Mesure de lecture : 65–75 caractères, jamais plus */
+  .measure {
+    max-width: 68ch;
+  }
+
+  .measure-tight {
+    max-width: 54ch;
+  }
+}
+
+/* ==========================================================================
+   Mouvement — uniquement quand il raconte quelque chose
+   ========================================================================== */
+
+@layer utilities {
+  .rise {
+    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
