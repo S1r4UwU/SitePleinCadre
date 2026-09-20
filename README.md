@@ -36,6 +36,7 @@ et renseigner les clés Resend.
 | `npm run dev` | Serveur de développement |
 | `npm run build` | Build de production |
 | `npm run typecheck` | Vérification TypeScript |
+| `npm run format` | Prettier sur `src/` |
 
 ## Stack
 
@@ -88,6 +89,9 @@ Les 29 anomalies relevées dans l'audit sont traitées. Les principales :
 | Bouton flottant **recouvrant** des contrôles | Supprimé ; CTA dans l'en-tête et colonne latérale collante |
 | `alt` = noms de fichiers, images = captures d'écran | Alternatives rédigées ; ardoises dessinées en attendant le reportage photo |
 | Aucune donnée structurée | `EducationalOrganization`, `Course`, `FAQPage`, `BreadcrumbList` |
+| Catalogue non filtrable, 6 cartes en vrac | Filtres ville / statut pilotés par l'URL — partageables, indexables, fonctionnels sans JavaScript |
+| Image de partage figée pour tout le site | Une image générée par page, avec les dates réelles |
+| Aucune favicon | `icon.svg` — le clap de la marque |
 
 Détail complet : [docs/audit-site-actuel.md](docs/audit-site-actuel.md).
 
@@ -102,10 +106,39 @@ L'identité du client est conservée et systématisée, pas remplacée :
   variables `opsz`, `SOFT` et `WONK`. **Mulish** remplace Avenir LT, sous licence Wix.
 - La **forme de carte signature** : arche en haut, un seul angle bas arrondi.
 - Corps de texte à **17 px** au lieu des 13 px en graisse Light de l'ancien site.
-- Pas d'ombre portée, pas d'icône décorative, pas de fondu au scroll systématique :
-  des filets, des numéros, une grille éditoriale asymétrique, un grain léger sur les aplats.
+- Pas d'ombre portée, pas d'icône décorative : des filets, des numéros, une grille
+  éditoriale asymétrique, un grain léger sur les aplats.
+
+### Le cadre, motif de la marque
+
+L'organisme s'appelle **Plein Cadre** et n'avait jamais exploité son propre motif. Deux
+équerres d'angle — le repère d'un viseur — cadrent le titre de l'accueil, se resserrent
+sur le visuel d'une carte au survol, marquent les vignettes d'intervenant·es et signent
+les images de partage. C'est le seul ornement du site, et il dit le nom de la marque.
+Il est implémenté en CSS pur (`.viseur`, pilotée par quatre variables), pas en image.
+
+### Mouvement
+
+Trois mécanismes, aucun n'utilisant de librairie d'animation :
+
+- **Transitions de vue** — l'ardoise d'une carte de session se déplace et se
+  redimensionne jusqu'à la fiche au lieu de disparaître (`<ViewTransition name="session-…"
+  share="morph">`, apparié entre les deux pages). L'en-tête est ancré pour rester le point
+  fixe. Sans prise en charge navigateur, la navigation est simplement instantanée.
+- **Révélations au défilement** — `animation-timeline: view()` en CSS natif, avec cascade
+  sur les grilles de cartes. Encadré par `@supports` : Firefox, qui garde la fonctionnalité
+  derrière un drapeau, affiche le contenu d'emblée. Zéro `IntersectionObserver`.
+- **Micro-interactions** — échelle du visuel, flèche qui avance, équerres qui se
+  resserrent. Tout est désactivé sous `prefers-reduced-motion`.
 
 Le raisonnement complet est dans [docs/brief-refonte.md](docs/brief-refonte.md) §5.
+
+### Images de partage
+
+`opengraph-image.tsx` génère une carte 1200×630 par page : bande claquante, équerres,
+titre en Fraunces et **les vraies dates de la session**. L'ancien site partageait une
+capture PNG figée, identique partout. Satori ne lisant pas les polices variables, une
+instance statique de Fraunces (71 Ko) est embarquée dans `src/app/_assets/`.
 
 ## Accessibilité
 

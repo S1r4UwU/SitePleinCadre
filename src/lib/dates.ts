@@ -14,7 +14,9 @@ function toDate(iso: string): Date {
 }
 
 function fmt(iso: string, options: Intl.DateTimeFormatOptions): string {
-  return new Intl.DateTimeFormat("fr-FR", { timeZone: TZ, ...options }).format(toDate(iso));
+  return new Intl.DateTimeFormat("fr-FR", { timeZone: TZ, ...options }).format(
+    toDate(iso),
+  );
 }
 
 /** « 16 novembre 2026 » */

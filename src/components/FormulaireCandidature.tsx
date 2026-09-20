@@ -124,7 +124,12 @@ export function FormulaireCandidature({
   }
 
   return (
-    <form ref={formRef} onSubmit={envoyer} noValidate={false} encType="multipart/form-data">
+    <form
+      ref={formRef}
+      onSubmit={envoyer}
+      noValidate={false}
+      encType="multipart/form-data"
+    >
       {/* Progression */}
       <ol className="mb-12 grid grid-cols-3 gap-3" aria-label="Progression">
         {etapes.map((e) => {
@@ -230,8 +235,8 @@ export function FormulaireCandidature({
               >
                 {sessions.map((session) => (
                   <option key={session.slug} value={session.slug}>
-                    {session.titre} — {periodeCourte(session.dateDebut, session.dateFin)} (
-                    {session.lieu.ville})
+                    {session.titre} — {periodeCourte(session.dateDebut, session.dateFin)}{" "}
+                    ({session.lieu.ville})
                   </option>
                 ))}
               </select>
@@ -258,7 +263,9 @@ export function FormulaireCandidature({
                   </option>
                 ))}
               </select>
-              {erreurs.financement && <Erreur id="financement">{erreurs.financement}</Erreur>}
+              {erreurs.financement && (
+                <Erreur id="financement">{erreurs.financement}</Erreur>
+              )}
             </div>
 
             {/* Boutons radio, et non deux cases à cocher indépendantes
@@ -268,8 +275,8 @@ export function FormulaireCandidature({
                 Êtes-vous en situation de handicap ? <Requis />
               </legend>
               <p className="measure mt-2 text-sm text-ink-soft">
-                Cette information nous permet d'anticiper les aménagements nécessaires. Elle
-                n'entre pas dans la sélection des candidatures.
+                Cette information nous permet d'anticiper les aménagements nécessaires.
+                Elle n'entre pas dans la sélection des candidatures.
               </p>
               <div className="mt-4 flex flex-wrap gap-x-8 gap-y-3">
                 {reponsesHandicap.map((reponse) => (
@@ -352,8 +359,8 @@ export function FormulaireCandidature({
                 />
                 <span className="measure">
                   J'accepte que Plein Cadre Formation conserve et traite ces informations
-                  dans le seul but d'étudier ma candidature et de constituer, le cas échéant,
-                  mon dossier de formation. <Requis />{" "}
+                  dans le seul but d'étudier ma candidature et de constituer, le cas
+                  échéant, mon dossier de formation. <Requis />{" "}
                   <a
                     href="/confidentialite"
                     className="text-navy underline underline-offset-4"
@@ -369,9 +376,18 @@ export function FormulaireCandidature({
             </div>
 
             {/* Piège à robots — masqué visuellement et aux lecteurs d'écran. */}
-            <div aria-hidden="true" className="absolute left-[-9999px] h-0 overflow-hidden">
+            <div
+              aria-hidden="true"
+              className="absolute left-[-9999px] h-0 overflow-hidden"
+            >
               <label htmlFor="societe">Société</label>
-              <input id="societe" name="societe" type="text" tabIndex={-1} autoComplete="off" />
+              <input
+                id="societe"
+                name="societe"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+              />
             </div>
           </div>
         </fieldset>

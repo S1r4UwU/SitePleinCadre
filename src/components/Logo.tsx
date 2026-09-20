@@ -14,7 +14,8 @@ export function Logo({
   ton?: "navy" | "cream";
 }) {
   const principal = ton === "cream" ? "var(--color-cream)" : "var(--color-navy)";
-  const accent = ton === "cream" ? "var(--color-terracotta-pale)" : "var(--color-terracotta)";
+  const accent =
+    ton === "cream" ? "var(--color-terracotta-pale)" : "var(--color-terracotta)";
 
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
@@ -53,7 +54,11 @@ function Ardoise({ principal, accent }: { principal: string; accent: string }) {
         d="M2.4 8.2 3.6 3.1a2 2 0 0 1 2.4-1.5l23 5.3a2 2 0 0 1 1.5 2.4l-.5 2.1L2.4 8.2Z"
         fill={accent}
       />
-      <path d="m9.6 2.6-2.5 5.9M16.8 4.3l-2.5 5.9M24 5.9l-2.5 6" stroke="var(--color-cream)" strokeWidth="1.4" />
+      <path
+        d="m9.6 2.6-2.5 5.9M16.8 4.3l-2.5 5.9M24 5.9l-2.5 6"
+        stroke="var(--color-cream)"
+        strokeWidth="1.4"
+      />
     </svg>
   );
 }

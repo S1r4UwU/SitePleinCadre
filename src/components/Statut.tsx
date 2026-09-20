@@ -39,9 +39,7 @@ export function Statut({
     return (
       <span
         className={`inline-flex items-center rounded-full border px-3.5 py-1.5 text-xs font-semibold ${
-          ton === "sombre"
-            ? "border-cream/40 text-cream/80"
-            : "border-navy/35 text-navy"
+          ton === "sombre" ? "border-cream/40 text-cream/80" : "border-navy/35 text-navy"
         }`}
       >
         {libelle}
@@ -53,7 +51,9 @@ export function Statut({
     return (
       <span
         className={`inline-flex items-center rounded-full border border-dashed px-3.5 py-1.5 text-xs font-semibold line-through decoration-1 ${
-          ton === "sombre" ? "border-cream/30 text-cream/55" : "border-ink/25 text-ink-mute"
+          ton === "sombre"
+            ? "border-cream/30 text-cream/55"
+            : "border-ink/25 text-ink-mute"
         }`}
       >
         {libelle}

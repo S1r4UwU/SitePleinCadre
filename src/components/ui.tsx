@@ -1,6 +1,21 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
+/**
+ * Adresse e-mail avec une opportunité de coupure après l'arobase.
+ * Sans cela, dans une colonne étroite, le navigateur coupe au milieu d'un mot
+ * (« contact@pleincadre-formati / on.com »).
+ */
+export function Email({ adresse }: { adresse: string }) {
+  const [local, domaine] = adresse.split("@");
+  return (
+    <>
+      {local}@<wbr />
+      {domaine}
+    </>
+  );
+}
+
 export function Container({
   children,
   className = "",
@@ -96,8 +111,7 @@ export function Bouton({
   className = "",
 }: BoutonProps) {
   const styles = {
-    primaire:
-      "bg-navy text-cream hover:bg-navy-deep border border-transparent",
+    primaire: "bg-navy text-cream hover:bg-navy-deep border border-transparent",
     secondaire:
       "border border-navy/30 text-navy hover:border-navy hover:bg-navy hover:text-cream",
     clair: "bg-cream text-navy hover:bg-cream-deep border border-transparent",

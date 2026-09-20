@@ -4,7 +4,7 @@ import { site } from "@/content/site";
 import { periode } from "@/lib/dates";
 import { duree, libellePrix } from "@/lib/format";
 import { FormulaireCandidature } from "@/components/FormulaireCandidature";
-import { Container, PageHeader, Section } from "@/components/ui";
+import { Container, Email, PageHeader, Section } from "@/components/ui";
 import { JsonLd, filAriane } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -50,9 +50,7 @@ export default async function Candidater({
     <>
       <PageHeader
         eyebrow="Candidature"
-        titre={
-          sessionCiblee ? "Candidater à cette session" : "Déposer une candidature"
-        }
+        titre={sessionCiblee ? "Candidater à cette session" : "Déposer une candidature"}
         intro={
           <p>
             Trois étapes, dix minutes. Nous revenons vers vous sous 48 heures ouvrées pour
@@ -73,13 +71,13 @@ export default async function Candidater({
                 />
               ) : (
                 <p className="measure text-lg text-ink-soft">
-                  Aucune session n'est ouverte à la candidature pour le moment. Écrivez-nous
-                  à{" "}
+                  Aucune session n'est ouverte à la candidature pour le moment.
+                  Écrivez-nous à{" "}
                   <a
                     href={`mailto:${site.contact.email}`}
                     className="text-navy underline underline-offset-4"
                   >
-                    {site.contact.email}
+                    <Email adresse={site.contact.email} />
                   </a>{" "}
                   pour être prévenu·e.
                 </p>
@@ -144,9 +142,9 @@ export default async function Candidater({
                 <p className="mt-2 text-sm">
                   <a
                     href={`mailto:${site.contact.email}`}
-                    className="break-all text-navy underline underline-offset-4"
+                    className="text-navy underline underline-offset-4"
                   >
-                    {site.contact.email}
+                    <Email adresse={site.contact.email} />
                   </a>
                 </p>
               </div>

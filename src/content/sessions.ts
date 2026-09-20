@@ -291,7 +291,8 @@ export const sessions: Session[] = [
       },
       {
         intitule: "Semaine 2 — Jour 9",
-        texte: "Approfondissement du travail de la veille et nouvelles propositions de jeu.",
+        texte:
+          "Approfondissement du travail de la veille et nouvelles propositions de jeu.",
       },
       {
         intitule: "Semaine 2 — Jour 10",

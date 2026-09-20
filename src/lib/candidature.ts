@@ -68,7 +68,8 @@ export const candidatureSchema = z.object({
   // Étape 3 — pièces
   bandeDemo: z.string().trim().max(300).optional().or(z.literal("")),
   consentement: z.literal("on", {
-    message: "Votre accord est nécessaire pour que nous puissions traiter votre candidature",
+    message:
+      "Votre accord est nécessaire pour que nous puissions traiter votre candidature",
   }),
 });
 

@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getIntervenant, intervenants, metiers, monogramme } from "@/content/intervenants";
+import {
+  getIntervenant,
+  intervenants,
+  metiers,
+  monogramme,
+} from "@/content/intervenants";
 import { sessions, statutAffiche } from "@/content/sessions";
 import { periodeCourte } from "@/lib/dates";
 import { Statut } from "@/components/Statut";

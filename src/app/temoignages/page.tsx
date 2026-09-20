@@ -19,8 +19,8 @@ export default function Temoignages() {
         titre="Ce qu'en disent les stagiaires"
         intro={
           <p>
-            Les retours sont recueillis à l'issue de chaque session, dans le cadre de notre
-            démarche qualité Qualiopi.
+            Les retours sont recueillis à l'issue de chaque session, dans le cadre de
+            notre démarche qualité Qualiopi.
           </p>
         }
       />
@@ -77,9 +77,9 @@ export default function Temoignages() {
                 </>
               ) : (
                 <p className="measure text-ink-soft">
-                  Le taux de satisfaction est publié sur la fiche de chaque session, avec sa
-                  période de référence. La dernière édition du stage « L'acteur·rice dirigé·e
-                  par deux réalisateur·rices » a recueilli 100 % de satisfaction.
+                  Le taux de satisfaction est publié sur la fiche de chaque session, avec
+                  sa période de référence. La dernière édition du stage « L'acteur·rice
+                  dirigé·e par deux réalisateur·rices » a recueilli 100 % de satisfaction.
                 </p>
               )}
             </div>

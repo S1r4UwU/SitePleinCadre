@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "@/content/site";
+import { Email } from "./ui";
 import { Logo } from "./Logo";
 
 const liensLegaux = [
@@ -23,7 +24,10 @@ export function Footer() {
 
   return (
     <footer className="mt-32 border-t border-ink/10 bg-cream-deep">
-      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
+      {/* Bande perforée : le bord d'une pellicule, tracé en CSS. */}
+      <div aria-hidden="true" className="perforations" />
+
+      <div className="mx-auto max-w-7xl px-5 pb-16 pt-12 sm:px-8">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
             <Logo />
@@ -54,9 +58,9 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${site.contact.email}`}
-                  className="break-all underline-offset-4 hover:underline"
+                  className="underline-offset-4 hover:underline"
                 >
-                  {site.contact.email}
+                  <Email adresse={site.contact.email} />
                 </a>
               </li>
             </ul>
@@ -112,7 +116,10 @@ export function Footer() {
               <ul className="mt-6 flex gap-4 text-sm">
                 {reseaux.map(([nom, url]) => (
                   <li key={nom}>
-                    <a href={url as string} className="underline-offset-4 hover:underline">
+                    <a
+                      href={url as string}
+                      className="underline-offset-4 hover:underline"
+                    >
                       {nom}
                     </a>
                   </li>

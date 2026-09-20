@@ -73,7 +73,12 @@ export const site = {
     categorie: "Actions de formation",
   },
 
-  financements: ["AFDAS", "France Travail", "Financement entreprise", "Financement personnel"],
+  financements: [
+    "AFDAS",
+    "France Travail",
+    "Financement entreprise",
+    "Financement personnel",
+  ],
 
   reseaux: {
     // L'ancien site pointait vers facebook.com/wix et instagram.com/wix :

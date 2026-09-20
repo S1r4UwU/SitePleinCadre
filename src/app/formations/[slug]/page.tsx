@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ViewTransition } from "react";
 import { getSession, sessions, statutAffiche } from "@/content/sessions";
 import { getIntervenants, monogramme } from "@/content/intervenants";
 import { site } from "@/content/site";
@@ -88,7 +89,8 @@ export default async function FicheSession({
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
               <p className="eyebrow tnum">
-                {session.lieu.ville} · {duree(session)} · {session.effectifMax} stagiaires max.
+                {session.lieu.ville} · {duree(session)} · {session.effectifMax} stagiaires
+                max.
               </p>
               <h1 className="mt-5 text-4xl sm:text-5xl">{session.titre}</h1>
               <p className="measure mt-5 font-[family-name:var(--font-display)] text-2xl text-ink-soft">
@@ -100,9 +102,17 @@ export default async function FicheSession({
             </div>
 
             <div className="lg:col-span-4 lg:col-start-9">
-              <div className="shape-cadre-sm aspect-[4/3] overflow-hidden">
-                <Ardoise session={session} priorite />
-              </div>
+              {/* Même `name` que sur la carte du catalogue : le visuel se déplace
+                  d'une page à l'autre au lieu d'être remplacé. */}
+              <ViewTransition
+                name={`session-${session.slug}`}
+                share="morph"
+                default="none"
+              >
+                <div className="viseur shape-cadre-sm aspect-[4/3] overflow-hidden [--viseur-couleur:var(--color-terracotta)] [--viseur-taille:2rem]">
+                  <Ardoise session={session} priorite />
+                </div>
+              </ViewTransition>
             </div>
           </div>
         </Container>
@@ -126,13 +136,19 @@ export default async function FicheSession({
                 <ListeFaits
                   className="mt-6"
                   faits={[
-                    { label: "Durée", valeur: `${session.heures} h sur ${session.jours} jours` },
+                    {
+                      label: "Durée",
+                      valeur: `${session.heures} h sur ${session.jours} jours`,
+                    },
                     { label: "Horaires", valeur: session.horaires },
                     {
                       label: "Lieu",
                       valeur: `${session.lieu.adresse}, ${session.lieu.codePostal} ${session.lieu.ville}`,
                     },
-                    { label: "Effectif", valeur: `${session.effectifMax} stagiaires maximum` },
+                    {
+                      label: "Effectif",
+                      valeur: `${session.effectifMax} stagiaires maximum`,
+                    },
                     { label: "Tarif", valeur: libellePrix(session) },
                   ]}
                 />
@@ -212,8 +228,8 @@ export default async function FicheSession({
               <section id="competences" className="mt-16">
                 <h2 className="text-2xl sm:text-3xl">Compétences visées</h2>
                 <p className="measure mt-4 text-ink-soft">
-                  À l'issue de la formation, le·la stagiaire aura développé les compétences
-                  nécessaires pour :
+                  À l'issue de la formation, le·la stagiaire aura développé les
+                  compétences nécessaires pour :
                 </p>
                 <ul className="mt-6 space-y-4">
                   {session.competencesVisees.map((competence, index) => (
@@ -297,8 +313,8 @@ export default async function FicheSession({
                 </ul>
               ) : (
                 <p className="measure mt-4 text-ink-soft">
-                  Les intervenant·es de cette session sont en cours de validation. Écrivez-nous
-                  à{" "}
+                  Les intervenant·es de cette session sont en cours de validation.
+                  Écrivez-nous à{" "}
                   <a
                     href={`mailto:${site.contact.email}`}
                     className="text-navy underline underline-offset-4"
@@ -368,10 +384,11 @@ export default async function FicheSession({
             <section id="candidater" className="mt-16 border-t border-ink/10 pt-10">
               <h2 className="text-2xl sm:text-3xl">Candidater</h2>
               <p className="measure mt-4 text-ink-soft">
-                Un seul chemin : le formulaire en ligne. Vous y joignez votre CV, votre lettre
-                de motivation, une photo en portrait et, si vous en avez une, le lien de votre
-                bande-démo. Nous revenons vers vous pour échanger, puis nous vous adressons le
-                devis et le programme nécessaires à votre demande de financement.
+                Un seul chemin : le formulaire en ligne. Vous y joignez votre CV, votre
+                lettre de motivation, une photo en portrait et, si vous en avez une, le
+                lien de votre bande-démo. Nous revenons vers vous pour échanger, puis nous
+                vous adressons le devis et le programme nécessaires à votre demande de
+                financement.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Bouton href={`/candidater?session=${session.slug}`}>

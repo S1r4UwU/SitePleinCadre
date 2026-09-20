@@ -97,7 +97,9 @@
     line-height: 1.04;
     letter-spacing: -0.015em;
     text-wrap: balance;
-    font-variation-settings: "SOFT" 0, "WONK" 1;
+    font-variation-settings:
+      "SOFT" 0,
+      "WONK" 1;
   }
 
   p {
@@ -155,8 +157,7 @@
   }
 
   .shape-cadre-sm {
-    border-radius: var(--radius-cadre-sm) var(--radius-cadre-sm) 0
-      var(--radius-cadre-sm);
+    border-radius: var(--radius-cadre-sm) var(--radius-cadre-sm) 0 var(--radius-cadre-sm);
   }
 
   /* Mesure de lecture : 65–75 caractères, jamais plus */
@@ -166,6 +167,75 @@
 
   .measure-tight {
     max-width: 54ch;
+  }
+}
+
+/* ==========================================================================
+   Le cadre — le motif de la marque
+
+   « Plein Cadre » : le viseur. Quatre équerres d'angle, comme le cadrage d'un
+   moniteur de retour ou le repère de mise au point d'un appareil. C'est le seul
+   ornement du site, et il dit le nom de l'organisme.
+   ========================================================================== */
+
+@layer components {
+  .viseur {
+    position: relative;
+  }
+
+  .viseur::before,
+  .viseur::after {
+    content: "";
+    position: absolute;
+    width: var(--viseur-taille, 1.75rem);
+    height: var(--viseur-taille, 1.75rem);
+    border: 1px solid var(--viseur-couleur, var(--color-terracotta));
+    pointer-events: none;
+    opacity: var(--viseur-opacite, 1);
+    transition:
+      opacity 0.4s ease,
+      inset 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Angle haut-gauche + angle bas-droit : deux équerres suffisent à suggérer
+     le cadre sans l'enfermer. */
+  .viseur::before {
+    top: var(--viseur-marge, -0.75rem);
+    left: var(--viseur-marge, -0.75rem);
+    border-right: 0;
+    border-bottom: 0;
+  }
+
+  .viseur::after {
+    right: var(--viseur-marge, -0.75rem);
+    bottom: var(--viseur-marge, -0.75rem);
+    border-left: 0;
+    border-top: 0;
+  }
+
+  /* Variante révélée au survol : les équerres se resserrent sur l'élément. */
+  .viseur-hover::before,
+  .viseur-hover::after {
+    --viseur-opacite: 0;
+    --viseur-marge: 0.25rem;
+  }
+
+  .group:hover .viseur-hover::before,
+  .group:hover .viseur-hover::after,
+  .group:focus-within .viseur-hover::before,
+  .group:focus-within .viseur-hover::after {
+    --viseur-opacite: 1;
+    --viseur-marge: -0.625rem;
+  }
+
+  /* Bande perforée de pellicule — filet horizontal, jamais une image. */
+  .perforations {
+    height: 0.75rem;
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-ink) 22%, transparent) 0 0.5rem,
+      transparent 0.5rem 1.5rem
+    );
   }
 }
 
@@ -190,6 +260,81 @@
   }
 }
 
+/* Révélation au défilement, en CSS pur.
+   Chrome/Edge 115+, Safari 26+. Firefox garde la fonctionnalité derrière un
+   drapeau : `@supports` fait que le contenu y est simplement visible d'emblée,
+   ce qui est le bon comportement de repli. Aucun JavaScript, aucun observer. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .revele {
+      animation: revele-entree linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 22%;
+    }
+
+    /* Décalage en cascade pour les grilles de cartes. */
+    .revele-2 {
+      animation-range: entry 2% cover 26%;
+    }
+
+    .revele-3 {
+      animation-range: entry 0% cover 30%;
+    }
+  }
+
+  @keyframes revele-entree {
+    from {
+      opacity: 0;
+      transform: translateY(2.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ==========================================================================
+   Transitions de vue — la carte de session devient la fiche
+
+   « Même objet, on entre dedans. » React apparie les <ViewTransition> de même
+   `name` entre les deux pages et anime la position et la taille.
+   ========================================================================== */
+
+::view-transition-group(.morph) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::view-transition-image-pair(.morph) {
+  animation-name: morph-flou;
+}
+
+@keyframes morph-flou {
+  30% {
+    filter: blur(3px);
+  }
+}
+
+/* L'en-tête reste le point fixe : c'est le contenu qui bouge, pas la page. */
+::view-transition-group(entete-site) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(entete-site) {
+  display: none;
+}
+
+::view-transition-new(entete-site) {
+  animation: none;
+}
+
+/* Sans cela, le calque de transition avale les clics pendant l'animation. */
+::view-transition {
+  pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -201,5 +346,12 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }

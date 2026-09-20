@@ -115,7 +115,8 @@ export default function Intervenants() {
         <Container>
           <p className="measure text-sm text-ink-mute">
             Les portraits des intervenant·es sont en cours de mise à jour. Aucune photo
-            n'est affichée tant que nous n'avons pas l'autorisation des personnes concernées.
+            n'est affichée tant que nous n'avons pas l'autorisation des personnes
+            concernées.
           </p>
         </Container>
       </Section>

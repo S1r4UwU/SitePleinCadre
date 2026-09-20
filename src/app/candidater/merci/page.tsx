@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { site } from "@/content/site";
-import { Bouton, Container, Section } from "@/components/ui";
+import { Bouton, Container, Email, Section } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Candidature envoyée",
@@ -15,18 +15,17 @@ export default function Merci() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
             <p className="eyebrow">Candidature envoyée</p>
-            <h1 className="mt-6 text-4xl sm:text-5xl">
-              C'est reçu. Merci.
-            </h1>
+            <h1 className="mt-6 text-4xl sm:text-5xl">C'est reçu. Merci.</h1>
             <p className="measure mt-8 text-lg text-ink-soft">
               Nous accusons réception de votre candidature sous 48 heures ouvrées, puis
-              nous vous appelons pour échanger sur votre parcours et vérifier que la session
-              correspond à votre projet.
+              nous vous appelons pour échanger sur votre parcours et vérifier que la
+              session correspond à votre projet.
             </p>
             <p className="measure mt-5 text-lg text-ink-soft">
-              Si votre formation passe par l'AFDAS ou France Travail, nous vous adresserons
-              ensuite le devis et le programme à déposer. Pensez à la date limite indiquée
-              sur la fiche de la session : c'est elle qui commande le calendrier.
+              Si votre formation passe par l'AFDAS ou France Travail, nous vous
+              adresserons ensuite le devis et le programme à déposer. Pensez à la date
+              limite indiquée sur la fiche de la session : c'est elle qui commande le
+              calendrier.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -51,14 +50,14 @@ export default function Merci() {
               <p className="mt-2">
                 <a
                   href={`mailto:${site.contact.email}`}
-                  className="break-all text-navy underline underline-offset-4"
+                  className="text-navy underline underline-offset-4"
                 >
-                  {site.contact.email}
+                  <Email adresse={site.contact.email} />
                 </a>
               </p>
               <p className="measure mt-6 text-sm text-ink-mute">
-                Vous n'avez pas joint toutes vos pièces ? Envoyez-les simplement en réponse
-                à notre e-mail de confirmation.
+                Vous n'avez pas joint toutes vos pièces ? Envoyez-les simplement en
+                réponse à notre e-mail de confirmation.
               </p>
             </div>
           </aside>

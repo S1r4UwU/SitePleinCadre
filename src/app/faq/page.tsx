@@ -37,7 +37,11 @@ export default function Faq() {
         if (questions.length === 0) return null;
 
         return (
-          <Section key={categorie.id} id={categorie.id} className="border-b border-ink/10">
+          <Section
+            key={categorie.id}
+            id={categorie.id}
+            className="border-b border-ink/10"
+          >
             <Container>
               <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
                 <div className="lg:col-span-4">

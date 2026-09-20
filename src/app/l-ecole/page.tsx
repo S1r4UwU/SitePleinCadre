@@ -48,8 +48,8 @@ export default function Ecole() {
         intro={
           <p>
             Plein Cadre Formation est dirigé par des réalisateur·ices, comédien·nes,
-            directeur·ices de casting et agent·es artistiques qui exercent leur métier
-            au quotidien.
+            directeur·ices de casting et agent·es artistiques qui exercent leur métier au
+            quotidien.
           </p>
         }
       />
@@ -70,8 +70,8 @@ export default function Ecole() {
                   réellement professionnelles.
                 </p>
                 <p>
-                  Nous apportons une attention particulière à chaque stagiaire par un suivi
-                  personnalisé, et nous mettons à disposition les moyens techniques
+                  Nous apportons une attention particulière à chaque stagiaire par un
+                  suivi personnalisé, et nous mettons à disposition les moyens techniques
                   nécessaires pour que l'environnement de travail soit le plus proche
                   possible d'un plateau.
                 </p>
@@ -153,13 +153,13 @@ export default function Ecole() {
                 </p>
                 <p>
                   Pour toute personne en situation de handicap souhaitant suivre l'une de
-                  nos formations, notre équipe est à son écoute pour construire une solution
-                  adaptée.
+                  nos formations, notre équipe est à son écoute pour construire une
+                  solution adaptée.
                 </p>
                 <p className="text-ink">
                   Notre référente handicap, <strong>{site.referenteHandicap.nom}</strong>,
-                  se tient à votre disposition pour toute question concernant les dispositifs
-                  disponibles, au{" "}
+                  se tient à votre disposition pour toute question concernant les
+                  dispositifs disponibles, au{" "}
                   <a
                     href={`tel:${site.referenteHandicap.telephoneLien}`}
                     className="tnum font-semibold text-navy underline underline-offset-4"

@@ -36,17 +36,17 @@ export function Header() {
     };
   }, [ouvert]);
 
-  const estActif = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+  const estActif = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink/10 bg-cream/85 backdrop-blur-md">
+    // L'en-tête est le point fixe pendant les transitions de vue : c'est le
+    // contenu qui bouge, pas le repère de l'utilisateur.
+    <header
+      style={{ viewTransitionName: "entete-site" }}
+      className="sticky top-0 z-50 border-b border-ink/10 bg-cream/85 backdrop-blur-md"
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-4 sm:px-8">
-        <Link
-          href="/"
-          className="rounded-sm"
-          aria-label={`${site.nom} — accueil`}
-        >
+        <Link href="/" className="rounded-sm" aria-label={`${site.nom} — accueil`}>
           <Logo />
         </Link>
 
@@ -90,7 +90,9 @@ export function Header() {
             aria-controls="menu-mobile"
             className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 lg:hidden"
           >
-            <span className="sr-only">{ouvert ? "Fermer le menu" : "Ouvrir le menu"}</span>
+            <span className="sr-only">
+              {ouvert ? "Fermer le menu" : "Ouvrir le menu"}
+            </span>
             <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
               {ouvert ? (
                 <path
@@ -113,10 +115,7 @@ export function Header() {
       </div>
 
       {ouvert && (
-        <div
-          id="menu-mobile"
-          className="border-t border-ink/10 bg-cream lg:hidden"
-        >
+        <div id="menu-mobile" className="border-t border-ink/10 bg-cream lg:hidden">
           <nav aria-label="Navigation principale (mobile)" className="px-5 py-4 sm:px-8">
             <ul className="flex flex-col">
               {navigation.map((item) => (

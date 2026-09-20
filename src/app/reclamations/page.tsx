@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { site } from "@/content/site";
-import { Container, PageHeader, Section } from "@/components/ui";
+import { Container, Email, PageHeader, Section } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Réclamations",
@@ -51,9 +51,9 @@ export default function Reclamations() {
               <p className="mt-5 text-lg">
                 <a
                   href={`mailto:${site.contact.email}?subject=${encodeURIComponent("Réclamation")}`}
-                  className="break-all font-semibold text-navy underline underline-offset-4"
+                  className="font-semibold text-navy underline underline-offset-4"
                 >
-                  {site.contact.email}
+                  <Email adresse={site.contact.email} />
                 </a>
               </p>
               <p className="tnum mt-3 text-lg">

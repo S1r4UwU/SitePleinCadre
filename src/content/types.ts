@@ -34,11 +34,7 @@ export type JourProgramme = {
 };
 
 export type MetierIntervenant =
-  | "directeur-casting"
-  | "realisateur"
-  | "agent"
-  | "acteur"
-  | "autre";
+  "directeur-casting" | "realisateur" | "agent" | "acteur" | "autre";
 
 export type Intervenant = {
   slug: string;

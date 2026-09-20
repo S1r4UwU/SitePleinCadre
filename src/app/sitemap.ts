@@ -10,7 +10,11 @@ import { site } from "@/content/site";
 export default function sitemap(): MetadataRoute.Sitemap {
   const maintenant = new Date();
 
-  const pages: { url: string; priority: number; changeFrequency: "weekly" | "monthly" | "yearly" }[] = [
+  const pages: {
+    url: string;
+    priority: number;
+    changeFrequency: "weekly" | "monthly" | "yearly";
+  }[] = [
     { url: "/", priority: 1, changeFrequency: "weekly" },
     { url: "/formations", priority: 0.9, changeFrequency: "weekly" },
     { url: "/intervenants", priority: 0.7, changeFrequency: "monthly" },

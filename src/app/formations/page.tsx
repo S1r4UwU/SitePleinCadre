@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
-import { sessionsAVenir, sessionsPassees } from "@/content/sessions";
+import { sessionsAVenir, sessionsPassees, statutAffiche } from "@/content/sessions";
 import { site } from "@/content/site";
 import { SessionCard } from "@/components/SessionCard";
+import {
+  FiltresCatalogue,
+  statuts,
+  villes,
+  type Filtres,
+} from "@/components/FiltresCatalogue";
 import { Bouton, Container, PageHeader, Section } from "@/components/ui";
 import { JsonLd, filAriane } from "@/lib/seo";
 import { periodeCourte } from "@/lib/dates";
@@ -14,16 +20,41 @@ export const metadata: Metadata = {
   alternates: { canonical: "/formations" },
 };
 
-export const revalidate = 3600;
+function normaliser(
+  valeur: string | string[] | undefined,
+  autorisees: readonly { valeur: string }[],
+  defaut: string,
+): string {
+  const v = Array.isArray(valeur) ? valeur[0] : valeur;
+  return autorisees.some((o) => o.valeur === v) ? (v as string) : defaut;
+}
 
-export default function Formations() {
-  const aVenir = sessionsAVenir();
+export default async function Formations({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const filtres: Filtres = {
+    ville: normaliser(params.ville, villes, "toutes"),
+    statut: normaliser(params.statut, statuts, "tous"),
+  };
+
+  const toutes = sessionsAVenir();
+  const aVenir = toutes.filter((session) => {
+    const parVille =
+      filtres.ville === "toutes" || session.lieu.ville.toLowerCase() === filtres.ville;
+    const parStatut =
+      filtres.statut === "tous" || statutAffiche(session) === filtres.statut;
+    return parVille && parStatut;
+  });
+
   const passees = sessionsPassees();
 
   return (
     <>
       <PageHeader
-        eyebrow={`${aVenir.length} sessions à venir`}
+        eyebrow={`${toutes.length} sessions à venir`}
         titre="Le calendrier des stages"
         intro={
           <p>
@@ -40,27 +71,36 @@ export default function Formations() {
         }
       />
 
-      <Section>
+      <Section className="pt-10 sm:pt-12">
         <Container>
+          <FiltresCatalogue
+            filtres={filtres}
+            resultats={aVenir.length}
+            total={toutes.length}
+          />
+
           {aVenir.length > 0 ? (
-            <ul className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {aVenir.map((session, index) => (
                 <li key={session.slug} className="flex">
-                  <SessionCard session={session} priorite={index < 3} />
+                  <SessionCard session={session} priorite={index < 3} rang={index} />
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="measure text-lg text-ink-soft">
-              Aucune session n'est programmée pour le moment. Écrivez-nous à{" "}
-              <a
-                href={`mailto:${site.contact.email}`}
-                className="text-navy underline underline-offset-4"
-              >
-                {site.contact.email}
-              </a>{" "}
-              pour être prévenu·e de l'ouverture du prochain calendrier.
-            </p>
+            <div className="shape-cadre-sm mt-12 border border-dashed border-ink/25 p-10">
+              <p className="measure text-lg text-ink-soft">
+                Aucune session ne correspond à ces critères pour le moment. Nos stages se
+                déroulent aujourd'hui à Lyon ; les sessions parisiennes sont annoncées au
+                cas par cas.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Bouton href="/formations" variante="secondaire">
+                  Voir toutes les sessions
+                </Bouton>
+                <Bouton href="/contact">Être prévenu·e</Bouton>
+              </div>
+            </div>
           )}
         </Container>
       </Section>
@@ -81,7 +121,8 @@ export default function Formations() {
                 >
                   <span className="font-medium text-ink-soft">{session.titre}</span>
                   <span className="tnum text-sm text-ink-mute">
-                    {periodeCourte(session.dateDebut, session.dateFin)} · {session.lieu.ville}
+                    {periodeCourte(session.dateDebut, session.dateFin)} ·{" "}
+                    {session.lieu.ville}
                   </span>
                 </li>
               ))}
@@ -96,8 +137,8 @@ export default function Formations() {
             <div className="lg:col-span-7">
               <h2 className="text-3xl sm:text-4xl">Une question avant de candidater ?</h2>
               <p className="measure mt-5 text-ink-soft">
-                Sur votre éligibilité AFDAS, votre niveau, le déroulé d'une journée :
-                la réponse est souvent dans la FAQ, sinon appelez-nous.
+                Sur votre éligibilité AFDAS, votre niveau, le déroulé d'une journée : la
+                réponse est souvent dans la FAQ, sinon appelez-nous.
               </p>
             </div>
             <div className="flex flex-wrap items-end gap-4 lg:col-span-4 lg:col-start-9">

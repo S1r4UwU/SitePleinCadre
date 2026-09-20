@@ -68,18 +68,23 @@ export default function Accueil() {
         <Container className="py-16 sm:py-24">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
-              <p className="eyebrow">
-                Lyon &amp; Paris · Formation professionnelle continue
-              </p>
+              {/* Le nom de l'organisme est « Plein Cadre » : le titre est cadré. */}
+              {/* Marge négative modérée sur mobile : les équerres doivent tenir
+                  dans la gouttière de 20 px, sinon elles sont rognées. */}
+              <div className="viseur [--viseur-marge:-0.625rem] [--viseur-taille:2rem] sm:[--viseur-marge:-2rem] sm:[--viseur-taille:3.5rem]">
+                <p className="eyebrow">
+                  Lyon &amp; Paris · Formation professionnelle continue
+                </p>
 
-              <h1 className="mt-6 text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.98]">
-                Stages intensifs de jeu face caméra
-              </h1>
+                <h1 className="mt-6 text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.98] [font-variation-settings:'SOFT'_0,'WONK'_1,'opsz'_144]">
+                  Stages intensifs de jeu face caméra
+                </h1>
+              </div>
 
-              <p className="measure mt-8 text-lg text-ink-soft sm:text-xl">
-                Cinq jours face à celles et ceux qui distribuent les films. Vous travaillez
-                vos scènes, vous êtes dirigé·e, vous êtes filmé·e — et vous voyez ce que ça
-                donne à l'image.
+              <p className="measure mt-10 text-lg text-ink-soft sm:text-xl">
+                Cinq jours face à celles et ceux qui distribuent les films. Vous
+                travaillez vos scènes, vous êtes dirigé·e, vous êtes filmé·e — et vous
+                voyez ce que ça donne à l'image.
               </p>
 
               <div className="mt-10 flex flex-wrap gap-4">
@@ -141,7 +146,9 @@ export default function Accueil() {
                   <span className="tnum block font-[family-name:var(--font-display)] text-4xl">
                     {chiffre.valeur}
                   </span>
-                  <span className="mt-2 block text-sm text-ink-soft">{chiffre.label}</span>
+                  <span className="mt-2 block text-sm text-ink-soft">
+                    {chiffre.label}
+                  </span>
                 </dd>
               </div>
             ))}
@@ -165,7 +172,12 @@ export default function Accueil() {
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {prochaines.slice(0, 3).map((session, index) => (
-              <SessionCard key={session.slug} session={session} priorite={index === 0} />
+              <SessionCard
+                key={session.slug}
+                session={session}
+                priorite={index === 0}
+                rang={index}
+              />
             ))}
           </div>
         </Container>
@@ -181,8 +193,9 @@ export default function Accueil() {
                 Ce qui se passe réellement pendant cinq jours
               </h2>
               <p className="measure mt-6 text-ink-soft">
-                Pas de théorie du jeu : des mises en situation, filmées, reprises, analysées.
-                Le stage se déroule en présentiel, en groupe de douze au maximum.
+                Pas de théorie du jeu : des mises en situation, filmées, reprises,
+                analysées. Le stage se déroule en présentiel, en groupe de douze au
+                maximum.
               </p>
             </div>
 
@@ -190,7 +203,7 @@ export default function Accueil() {
               {etapes.map((etape, index) => (
                 <li
                   key={etape.titre}
-                  className="grid grid-cols-[3rem_1fr] gap-5 border-t border-ink/12 py-7 first:border-t-0 first:pt-0"
+                  className="revele grid grid-cols-[3rem_1fr] gap-5 border-t border-ink/12 py-7 first:border-t-0 first:pt-0"
                 >
                   <span
                     aria-hidden="true"
@@ -225,12 +238,12 @@ export default function Accueil() {
 
           <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
             {castingDirectors.map((personne) => (
-              <li key={personne.slug}>
+              <li key={personne.slug} className="revele">
                 <Link
                   href={`/intervenants/${personne.slug}`}
                   className="group block focus-visible:outline-none"
                 >
-                  <span className="shape-cadre-sm flex aspect-[4/5] items-end justify-start border border-ink/12 bg-navy p-5 transition-colors duration-300 group-hover:bg-navy-deep group-focus-visible:ring-2 group-focus-visible:ring-terracotta group-focus-visible:ring-offset-2">
+                  <span className="viseur shape-cadre-sm relative flex aspect-[4/5] items-end justify-start border border-ink/12 bg-navy p-5 transition-colors duration-300 [--viseur-couleur:var(--color-terracotta-pale)] [--viseur-marge:0.75rem] [--viseur-taille:1.25rem] group-hover:bg-navy-deep group-focus-visible:ring-2 group-focus-visible:ring-terracotta group-focus-visible:ring-offset-2">
                     <span
                       aria-hidden="true"
                       className="font-[family-name:var(--font-display)] text-5xl text-cream/90"
@@ -241,7 +254,9 @@ export default function Accueil() {
                   <span className="mt-4 block font-semibold underline-offset-4 group-hover:underline">
                     {personne.nom}
                   </span>
-                  <span className="mt-1 block text-sm text-ink-soft">{personne.role}</span>
+                  <span className="mt-1 block text-sm text-ink-soft">
+                    {personne.role}
+                  </span>
                 </Link>
               </li>
             ))}
@@ -265,8 +280,8 @@ export default function Accueil() {
               </h2>
               <p className="measure mt-6 text-cream/90">
                 Plein Cadre est certifié Qualiopi (n° {site.qualiopi.numeroCertificat}) :
-                nos formations sont conventionnées AFDAS et France Travail. Reste à déposer
-                le dossier dans les délais — c'est là que tout se joue.
+                nos formations sont conventionnées AFDAS et France Travail. Reste à
+                déposer le dossier dans les délais — c'est là que tout se joue.
               </p>
               <div className="mt-8">
                 <Bouton href="/financement" variante="clair">
@@ -293,7 +308,10 @@ export default function Accueil() {
                     "Dans la limite des places disponibles. Échelonnement possible, à convenir avec le centre de formation.",
                 },
               ].map((item) => (
-                <div key={item.titre} className="border-t border-cream/25 py-7 first:border-t-0 first:pt-0">
+                <div
+                  key={item.titre}
+                  className="border-t border-cream/25 py-7 first:border-t-0 first:pt-0"
+                >
                   <dt className="font-[family-name:var(--font-display)] text-2xl">
                     {item.titre}
                   </dt>
@@ -333,9 +351,7 @@ export default function Accueil() {
           <div className="shape-cadre bg-navy px-8 py-16 text-cream sm:px-16 sm:py-20">
             <div className="grid gap-10 lg:grid-cols-12">
               <div className="lg:col-span-7">
-                <h2 className="text-3xl sm:text-4xl">
-                  Candidater prend dix minutes
-                </h2>
+                <h2 className="text-3xl sm:text-4xl">Candidater prend dix minutes</h2>
                 <p className="measure mt-5 text-cream/90">
                   CV, lettre de motivation, une photo en portrait et, si vous en avez une,
                   votre bande-démo. Nous revenons vers vous rapidement pour échanger, puis

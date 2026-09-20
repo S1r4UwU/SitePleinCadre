@@ -83,9 +83,9 @@ export default function Financement() {
         titre="Vous n'avez sans doute pas à payer cette formation"
         intro={
           <p>
-            Plein Cadre est un organisme certifié Qualiopi n° {site.qualiopi.numeroCertificat} :
-            nos stages sont conventionnés AFDAS et France Travail. Toute la difficulté est
-            dans les délais — voici lesquels.
+            Plein Cadre est un organisme certifié Qualiopi n°{" "}
+            {site.qualiopi.numeroCertificat} : nos stages sont conventionnés AFDAS et
+            France Travail. Toute la difficulté est dans les délais — voici lesquels.
           </p>
         }
       />
@@ -96,7 +96,8 @@ export default function Financement() {
           <Container>
             <h2 className="text-2xl sm:text-3xl">Les prochaines échéances</h2>
             <p className="measure mt-4 text-ink-soft">
-              La date qui compte n'est pas celle du stage, c'est celle du dépôt de dossier.
+              La date qui compte n'est pas celle du stage, c'est celle du dépôt de
+              dossier.
             </p>
             <ul className="mt-8 divide-y divide-ink/10 border-y border-ink/10">
               {ouvertes.map((session) => {
@@ -124,7 +125,11 @@ export default function Financement() {
       )}
 
       {dispositifs.map((dispositif) => (
-        <Section key={dispositif.id} id={dispositif.id} className="border-b border-ink/10">
+        <Section
+          key={dispositif.id}
+          id={dispositif.id}
+          className="border-b border-ink/10"
+        >
           <Container>
             <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
               <div className="lg:col-span-4">
@@ -192,7 +197,10 @@ export default function Financement() {
                 {dispositif.id === "france-travail" && (
                   <p className="tnum mt-8 text-lg">
                     France Travail —{" "}
-                    <a href="tel:3949" className="font-semibold text-navy underline underline-offset-4">
+                    <a
+                      href="tel:3949"
+                      className="font-semibold text-navy underline underline-offset-4"
+                    >
                       3949
                     </a>
                   </p>
@@ -225,10 +233,13 @@ export default function Financement() {
         <Container>
           <div className="grid gap-8 lg:grid-cols-12">
             <div className="lg:col-span-7">
-              <h2 className="text-3xl sm:text-4xl">Vous ne savez pas où vous en êtes ?</h2>
+              <h2 className="text-3xl sm:text-4xl">
+                Vous ne savez pas où vous en êtes ?
+              </h2>
               <p className="measure mt-5 text-ink-soft">
-                Appelez-nous : en dix minutes nous saurons quel dispositif vous concerne et
-                sous quel délai il faut déposer. C'est plus rapide que de chercher seul·e.
+                Appelez-nous : en dix minutes nous saurons quel dispositif vous concerne
+                et sous quel délai il faut déposer. C'est plus rapide que de chercher
+                seul·e.
               </p>
             </div>
             <div className="flex flex-wrap items-end gap-4 lg:col-span-4 lg:col-start-9">

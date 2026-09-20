@@ -29,32 +29,33 @@ export default function Accessibilite() {
           <Prose>
             <h2>Niveau visé</h2>
             <p>
-              Ce site est conçu pour respecter le niveau <strong>AA</strong> des règles pour
-              l'accessibilité des contenus web (WCAG 2.1). Concrètement :
+              Ce site est conçu pour respecter le niveau <strong>AA</strong> des règles
+              pour l'accessibilité des contenus web (WCAG 2.1). Concrètement :
             </p>
             <ul>
-              <li>un seul titre de niveau 1 par page et une hiérarchie de titres continue ;</li>
               <li>
-                un contraste d'au moins 4,5:1 entre le texte et son fond, y compris pour les
-                mentions secondaires ;
+                un seul titre de niveau 1 par page et une hiérarchie de titres continue ;
               </li>
               <li>
-                une navigation complète au clavier, avec un indicateur de focus visible sur
-                tous les éléments interactifs ;
+                un contraste d'au moins 4,5:1 entre le texte et son fond, y compris pour
+                les mentions secondaires ;
               </li>
               <li>
-                des formulaires avec de vraies étiquettes, des groupes de boutons radio, et
-                des messages d'erreur reliés à leur champ ;
+                une navigation complète au clavier, avec un indicateur de focus visible
+                sur tous les éléments interactifs ;
               </li>
               <li>
-                des alternatives textuelles rédigées pour les images porteuses d'information ;
+                des formulaires avec de vraies étiquettes, des groupes de boutons radio,
+                et des messages d'erreur reliés à leur champ ;
               </li>
               <li>
-                aucun élément flottant ne recouvre un bouton ou un texte ;
+                des alternatives textuelles rédigées pour les images porteuses
+                d'information ;
               </li>
+              <li>aucun élément flottant ne recouvre un bouton ou un texte ;</li>
               <li>
-                les animations sont désactivées si votre système signale une préférence pour
-                un mouvement réduit.
+                les animations sont désactivées si votre système signale une préférence
+                pour un mouvement réduit.
               </li>
             </ul>
 
@@ -66,17 +67,17 @@ export default function Accessibilite() {
                 d'assistance.
               </li>
               <li>
-                Aucun audit d'accessibilité externe n'a encore été réalisé sur cette version
-                du site.
+                Aucun audit d'accessibilité externe n'a encore été réalisé sur cette
+                version du site.
               </li>
             </ul>
 
             <h2>Accueil des stagiaires en situation de handicap</h2>
             <p>
               {site.nomComplet} s'inscrit dans une politique d'égalité des chances. Notre
-              référente handicap, <strong>{site.referenteHandicap.nom}</strong>, est à votre
-              écoute pour étudier les aménagements possibles avant, pendant et après la
-              formation :{" "}
+              référente handicap, <strong>{site.referenteHandicap.nom}</strong>, est à
+              votre écoute pour étudier les aménagements possibles avant, pendant et après
+              la formation :{" "}
               <a href={`tel:${site.referenteHandicap.telephoneLien}`}>
                 {site.referenteHandicap.telephone}
               </a>
@@ -88,8 +89,8 @@ export default function Accessibilite() {
               Si vous rencontrez une difficulté d'accès à une information ou à une
               fonctionnalité de ce site, écrivez-nous à{" "}
               <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>. Nous nous
-              engageons à vous répondre sous huit jours et à vous transmettre l'information
-              recherchée par un autre moyen dans l'intervalle.
+              engageons à vous répondre sous huit jours et à vous transmettre
+              l'information recherchée par un autre moyen dans l'intervalle.
             </p>
           </Prose>
         </Container>
